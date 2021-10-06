@@ -9,6 +9,7 @@ $ cd gsn-dapp
 $ npx ganache-cli
 
 // Terminal 2 (relayer)
+$ npm install @openzeppelin/gsn-helpers
 $ npx oz-gsn run-relayer
 
 // Terminal 3 (front-end)
