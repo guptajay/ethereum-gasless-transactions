@@ -3,7 +3,7 @@ Project on Ethereum Gasless Transactions for CZ4153 Blockchain Technology (OPENG
 
 cd OpenGSN
 
-// Terminal 1
+// Terminal 1\n
 $ yarn
 
 $ yarn ganache
