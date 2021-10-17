@@ -1,18 +1,21 @@
 # ethereum-gasless-transactions
-Project on Ethereum Gasless Transactions for CZ4153 Blockchain Technology
+Project on Ethereum Gasless Transactions for CZ4153 Blockchain Technology (OPENGSN)
 
-## Run locally
-```console
-$ cd gsn-dapp
+cd OpenGSN
 
-// Terminal 1 (etherum contract)
-$ npx ganache-cli
+// Terminal 1
+$ yarn
+$ yarn ganache
 
-// Terminal 2 (relayer)
-$ npm install @openzeppelin/gsn-helpers
-$ npx oz-gsn run-relayer
+// Terminal 2 
+$ rm -rf build/contracts
+$ npx gsn start
 
-// Terminal 3 (front-end)
-$ cd client
-$ npm start
+// Terminal 3 (relayer)
+$ yarn start
+
+Take any private key from ganache and add it to the metamask wallet. 
+
+Click capture the flag button
+
 ```
