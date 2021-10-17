@@ -5,10 +5,12 @@ cd OpenGSN
 
 // Terminal 1
 $ yarn
+
 $ yarn ganache
 
 // Terminal 2 
 $ rm -rf build/contracts
+
 $ npx gsn start
 
 // Terminal 3 (relayer)
