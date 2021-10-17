@@ -9,7 +9,7 @@ $ yarn
 
 $ yarn ganache
 
-**Terminal 2 **
+**Terminal 2**
 
 $ rm -rf build/contracts
 
