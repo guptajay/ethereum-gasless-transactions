@@ -17,10 +17,13 @@ contract CaptureTheFlag is BaseRelayRecipient {
 
     string public override versionRecipient = "2.2.0";
 
+    //mapping[address] => token_balance 
+
     function captureTheFlag() external {
         address previousHolder = currentHolder;
 
         currentHolder = _msgSender();
+        
 
         emit FlagCaptured(previousHolder, currentHolder);
     }
