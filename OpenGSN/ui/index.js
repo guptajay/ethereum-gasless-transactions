@@ -1,7 +1,7 @@
 const ethers = require('ethers')
 const { formatEther } = require( 'ethers/lib/utils')
 const { RelayProvider } = require( '@opengsn/provider')
-// const paymasterArtifact = require('../build/contracts/WhitelistPaymaster.json')
+//const paymasterArtifact = require('../build/contracts/WhitelistPaymaster.json')
 let whitelistPaymasterAddress
 
 // In truffle console run:
@@ -11,9 +11,13 @@ let whitelistPaymasterAddress
 const paymasterAddress = require( '../build/gsn/Paymaster').address
 const contractArtifact = require('../build/contracts/CaptureTheFlag.json')
 const customPaymaster = require('../build/contracts/CustomPaymaster.json')
+const tokenBank = require('../build/contracts/TokenBank.json')
 const contractAbi = contractArtifact.abi
 
 let theContract
+let whiteListPaymasterContract
+let tokenBankContract
+
 let provider
 
 async function initContract() {
@@ -30,7 +34,8 @@ async function initContract() {
     window.location.reload()
   })
   const networkId = await window.ethereum.request({method: 'net_version'})
-  whitelistPaymasterAddress = "0xDb56f2e9369E0D7bD191099125a3f6C370F8ed15"
+  //whitelistPaymasterAddress = "0xDb56f2e9369E0D7bD191099125a3f6C370F8ed15"
+  whitelistPaymasterAddress = customPaymaster.networks[networkId].address
   const gsnProvider = await RelayProvider.newProvider( {
     provider: window.ethereum,
     config: {
@@ -49,6 +54,12 @@ async function initContract() {
   theContract = new ethers.Contract(
     contractAddress, contractAbi, provider.getSigner())
 
+  whiteListPaymasterContract = new ethers.Contract(
+    whitelistPaymasterAddress, customPaymaster.abi,provider.getSigner())
+
+    tokenBankContract =  new ethers.Contract(
+      tokenBank.networks[networkId].address, tokenBank.abi,provider.getSigner())
+
   await listenToEvents()
   return {contractAddress, network}
 }
@@ -61,6 +72,13 @@ async function contractCall() {
   console.log(`Transaction ${hash} sent`)
   const receipt = await provider.waitForTransaction(hash)
   console.log(`Mined in block: ${receipt.blockNumber}`)
+
+
+  const senderValue = await tokenBankContract.getBalance("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1")
+  console.log(`Sender Token Balance: ${senderValue}`)
+
+  const paymasterValue = await tokenBankContract.getBalance(whitelistPaymasterAddress)
+  console.log(`Paymaster Token Balance: ${paymasterValue}`)
 }
 
 let logview
