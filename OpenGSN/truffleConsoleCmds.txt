@@ -4,3 +4,6 @@ await tokenBank.getBalance(tokenBank.address)
 await tokenBank.depositTokens({value: 10})
 await tokenBank.getBalance(paymasterAddress)
 
+
+helpers
+await web3.eth.getBalance('address')
