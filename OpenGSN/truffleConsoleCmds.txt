@@ -1,9 +1,18 @@
+const token = await Token.deployed()
 const tokenBank = await TokenBank.deployed()
-await tokenBank.getBalance('0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1')
-await tokenBank.getBalance(tokenBank.address)
-await tokenBank.depositTokens({value: 10})
-await tokenBank.getBalance(paymasterAddress)
+const paymaster = await CustomPaymaster.deployed()
+await token.balanceOf(tokenBank.address)
+await token.balanceOf("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1")
+await tokenBank.buyTokens({value:100})
+await token.balanceOf("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1")
+await token.increaseAllowance(paymaster.address,10)
 
 
-helpers
-await web3.eth.getBalance('address')
+// TESTing CMDS DO NOT RUN
+
+// await token.allowance("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",paymaster.address) to check allowance
+
+await tokenBank.approveTokens(tokenBank.address,10)
+await token.increaseAllowance(tokenBank.address,10)
+await tokenBank.transferTokens("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",tokenBank.address,1)
+await tokenBank.approveTokens(paymaster.address,10)

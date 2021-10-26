@@ -42,7 +42,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -61,7 +62,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -74,7 +76,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -87,7 +90,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -106,7 +110,7 @@
   "sourceMap": "121:550:19:-:0;;;285:1;246:41;;;;;;;;;;;;;;;;;;;;374:49;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;294:74;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;352:9;333:16;;:28;;;;;;;;;;;;;;;;;;294:74;121:550;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;:::o;:::-;;;;;;;",
   "deployedSourceMap": "121:550:19:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;246:41;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;472:197;;;:::i;:::-;;374:49;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;476:135:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;438:31;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;246:41:19;;;;;;;;;;;;;:::o;472:197::-;517:22;542:13;;;;;;;;;;;517:38;;582:12;:10;:12::i;:::-;566:13;;:28;;;;;;;;;;;;;;;;;;619:43;632:14;648:13;;;;;;;;;;;619:43;;;;;;;;;;;;;;;;;;;;;;;;;;;;472:197;:::o;374:49::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;476:135:1:-;552:4;588:16;;;;;;;;;;;575:29;;:9;:29;;;568:36;;476:135;;;:::o;438:31::-;;;;;;;;;;;;:::o;863:556::-;925:19;979:2;960:8;;:15;;:21;;:55;;;;;985:30;1004:10;985:18;:30::i;:::-;960:55;956:457;;;1336:2;1321:14;1317:22;1304:36;1301:2;1297:44;1290:51;;1272:83;;;1392:10;1385:17;;;;956:457;863:556;;:::o",
   "source": "/**\n * SPDX-License-Identifier:MIT\n */\npragma solidity ^0.7.6;\n\nimport \"@opengsn/contracts/src/BaseRelayRecipient.sol\";\n\ncontract CaptureTheFlag is BaseRelayRecipient {\n\n    event FlagCaptured(address previousHolder, address currentHolder);\n\n    address public currentHolder = address(0);\n\n    constructor(address forwarder) {\n      trustedForwarder = forwarder;\n    }\n\n    string public override versionRecipient = \"2.2.0\";\n\n    //mapping[address] => token_balance \n\n    function captureTheFlag() external {\n        address previousHolder = currentHolder;\n\n        currentHolder = _msgSender();\n        \n\n        emit FlagCaptured(previousHolder, currentHolder);\n    }\n}\n",
-  "sourcePath": "C:\\Users\\nomif\\Desktop\\Programming\\Blockchain\\local_copy\\ethereum-gasless-transactions-CustomPaymaster\\OpenGSN\\contracts\\CaptureTheFlag.sol",
+  "sourcePath": "C:\\Users\\nomif\\Desktop\\Programming\\Blockchain\\ethereum-gasless-transactions\\OpenGSN\\contracts\\CaptureTheFlag.sol",
   "ast": {
     "absolutePath": "project:/contracts/CaptureTheFlag.sol",
     "exportedSymbols": {
@@ -1403,15 +1407,16 @@
     "version": "0.7.6+commit.7338295f.Emscripten.clang"
   },
   "networks": {
-    "1635183693068": {
+    "1635265639089": {
       "events": {},
       "links": {},
-      "address": "0x0E696947A06550DEf604e82C26fd9E493e576337",
-      "transactionHash": "0x68ec694eab8ac81419e4057f4c769dc90f0741563e26194f559905c20d5034fe"
+      "address": "0x05eA50dc2C0389117A067D393e0395ACc32c53b6",
+      "transactionHash": "0x39b8b3f5be8f053e820c36c009f0abd8788ed2886861cd163c17bc4f21779aa0"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-10-25T17:52:28.131Z",
+  "updatedAt": "2021-10-26T19:55:46.384Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

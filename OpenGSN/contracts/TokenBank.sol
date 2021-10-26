@@ -1,57 +1,74 @@
 pragma solidity ^0.7.6;
 import "./Token.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
 
 contract TokenBank {
 
-
-    event Withdraw(address indexed user, uint balance);
-    event Deposit(address indexed user, uint balance);
+    uint tokenEthRate = 1;
+    
+    event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
     Token private token;
-    mapping(address => uint) public tokenBalance;
+    // mapping(address => uint) public tokenBalance;
   
 
-    constructor(Token _token,uint _supply) public {
+    constructor(Token _token) public {
         token = _token;
-        token.mint(address(this),_supply*(10**18));
-        tokenBalance[address(this)] = _supply*(10**18);
+    }
+
+    function buyTokens() public payable {
+        require(msg.value > 0, "Invalid Amount");
+
+        uint amountToBuy = msg.value * tokenEthRate;
+
+        uint bankTokenBalance = token.balanceOf(address(this));
+        require(bankTokenBalance >= amountToBuy,"Token Bank Has Insufficient Tokens");
+
+        bool sent = token.transfer(msg.sender, amountToBuy);
+        require(sent, "Failed to transfer token to user");
+
+        emit BuyTokens(msg.sender,msg.value,amountToBuy);
+    }
+
+    function sellTokens(uint256 tokenAmountToSell) public { //does not work yet
+    // Check that the requested amount of tokens to sell is more than 0
+        require(tokenAmountToSell > 0, "Specify an amount of token greater than zero");
+
+        // Check that the user's token balance is enough to do the swap
+        uint256 userBalance = token.balanceOf(msg.sender);
+        require(userBalance >= tokenAmountToSell, "Your balance is lower than the amount of tokens you want to sell");
+
+        // Check that the Vendor's balance is enough to do the swap
+        uint256 amountOfETHToTransfer = tokenAmountToSell / tokenEthRate;
+        uint256 bankEthBalance = address(this).balance;
+        require(bankEthBalance >= amountOfETHToTransfer, "Vendor has not enough funds to accept the sell request");
+
+        (bool sent) = token.transferFrom(msg.sender, address(this), tokenAmountToSell);
+        require(sent, "Failed to transfer tokens from user to vendor");
+
+
+        (sent,) = msg.sender.call{value: amountOfETHToTransfer}("");
+        require(sent, "Failed to send ETH to the user");
     }
 
 
-
-    function depositTokens() payable public {
-        tokenBalance[msg.sender] += msg.value;
-        emit Deposit(msg.sender, tokenBalance[msg.sender]);
-    }
-
-    function withdrawTokens(uint amount) public {
-        
-        require(tokenBalance[msg.sender] > amount, "INSUFFICIENT TOKEN BALANCE");
-        tokenBalance[msg.sender] -= amount; // blockchain security changing internal states first
-        msg.sender.transfer(amount); 
-
-        emit Withdraw(msg.sender, tokenBalance[msg.sender]);
-    }
-
-    function transferTokens(address _debitor) public {
-        require(tokenBalance[_debitor] >= 1, "INSUFFICIENT TOKEN BALANCE");
-        tokenBalance[_debitor]-=1;
-        tokenBalance[msg.sender]+=1;
-    }
-
-
-    function getBalance(address _address) public view returns(uint) {
-        return tokenBalance[_address];
-    }
-
-
-    // function authorizeTokens(address _recepient,uint max_amount) public {
-    //     tokenAuthBalances[]
+    // function approveTokens(address _creditor,uint256 amount) public{
+    //     require(token.approve(_creditor,amount),"Allowance Failed");
+    //     token.increaseAllowance(_creditor,amount); //IDK WHY 
     // }
 
-    // function withdrawTokensAsRecepient(address _debitor,unit amount){
-    //         // only once 
+    // function transferTokens(address _debitor,address _creditor ,uint amount) public {
+    //     token.transferFrom(_debitor,_creditor,amount);
     // }
+
+    // function tokenBalance(address _address) view public returns(uint) {
+    //     return token.balanceOf(_address);
+    }
+
+
+
+
 
 
     

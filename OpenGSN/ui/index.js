@@ -74,11 +74,11 @@ async function contractCall() {
   console.log(`Mined in block: ${receipt.blockNumber}`)
 
 
-  const senderValue = await tokenBankContract.getBalance("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1")
-  console.log(`Sender Token Balance: ${senderValue}`)
+  //const senderValue = await tokenBankContract.getBalance("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1")
+  //console.log(`Sender Token Balance: ${senderValue}`)
 
-  const paymasterValue = await tokenBankContract.getBalance(whitelistPaymasterAddress)
-  console.log(`Paymaster Token Balance: ${paymasterValue}`)
+  //const paymasterValue = await tokenBankContract.getBalance(whitelistPaymasterAddress)
+  //console.log(`Paymaster Token Balance: ${paymasterValue}`)
 }
 
 let logview

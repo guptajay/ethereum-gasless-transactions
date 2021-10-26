@@ -17,19 +17,14 @@ contract CustomPaymaster is AcceptEverythingPaymaster {
     mapping (address=>bool) public targetWhitelist;
 
     TokenBank private tokenBank;
-    // function setToken(Token _token,address holder) public {
-    //     token = _token;
-    //     token.mint(holder, 10);
-    //     tokenBalance[holder] = 10;
-    // }
+    Token private token;
 
-    function setTokenBank(TokenBank _tokenBank) public {
+
+    function setTokenBank(TokenBank _tokenBank,Token _token) public {
         tokenBank = _tokenBank;
+        token = _token;
     }
 
-    // function getBalance(address _address) public view returns(uint) {
-    //     return tokenBalance[_address];
-    // }
 
     function whitelistSender(address sender) public onlyOwner {
         senderWhitelist[sender]=true;
@@ -53,7 +48,7 @@ contract CustomPaymaster is AcceptEverythingPaymaster {
         (relayRequest, signature, approvalData, maxPossibleGas);
 
         
-        tokenBank.transferTokens(relayRequest.request.from);
+        token.transferFrom(relayRequest.request.from,address(this),1);
         // require(tokenBalance[relayRequest.request.from] > 1,"INSUFFICIENT TOKEN BALANCE");
         // tokenBalance[relayRequest.request.from]-=1;
             //require( senderWhitelist[relayRequest.request.from], "FAIL WHITELIST CUSTOM");

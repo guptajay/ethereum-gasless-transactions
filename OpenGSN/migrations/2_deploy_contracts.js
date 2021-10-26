@@ -17,9 +17,11 @@ module.exports = async function (deployer) {
 	const token = await Token.deployed()
   
 
-  await deployer.deploy(TokenBank,token.address,100)
+  await deployer.deploy(TokenBank,token.address)
 	const tokenBank = await TokenBank.deployed()
-
+  token.mint(tokenBank.address)
+  token.passMinterRole(tokenBank.address)
+  
 
 
   const relayHubAddress = require('../build/gsn/RelayHub.json').address
@@ -28,9 +30,11 @@ module.exports = async function (deployer) {
   const paymaster = await CustomPaymaster.deployed()
   await paymaster.setRelayHub(relayHubAddress)
   await paymaster.setTrustedForwarder(forwarder) // only trusted forwarder atm
-  await paymaster.setTokenBank(tokenBank.address)
+  await paymaster.setTokenBank(tokenBank.address,token.address)
   // await paymaster.whitelistSender('0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1')
   
+  // await tokenBank.buyTokens({value:10000})
+  // await token.increaseAllowance(paymaster.address,10)
 
   // to add more addresses to the whitelist, open truffle console and run:
   // const pm = await WhitelistPaymaster.deployed()
