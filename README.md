@@ -4,20 +4,19 @@ Project on Ethereum Gasless Transactions for CZ4153 Blockchain Technology (OPENG
 cd OpenGSN
 
 
-//DO NOT RUN YARN 
-
-// Terminal 1
+1. Terminal 1
 $ yarn ganache
 
-// Terminal 2 
+2. Terminal 2 
 $ npx gsn start
 
-// Terminal 3 (relayer)
+3. Terminal 3 (relayer)
+$ rm -rf build/contracts
 $ yarn start
 
 
-Take any private key from ganache and add it to the metamask wallet. 
+Take any first key from ganache and add it to the metamask wallet. 
 
-Click capture the flag button
+refer to truffleConsoleCmds for execution details
 
 ```
