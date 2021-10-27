@@ -1,0 +1,22 @@
+{
+    "name": "@types/cli-table",
+    "version": "0.3.0",
+    "description": "TypeScript definitions for cli-table",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "AryloYeung",
+            "url": "https://github.com/arylo",
+            "githubUsername": "arylo"
+        }
+    ],
+    "main": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git.git"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "f5971d2a4935796746e42f74aefd3a9e6cb9108fad0b160816b622b52853b215",
+    "typeScriptVersion": "2.1"
+}

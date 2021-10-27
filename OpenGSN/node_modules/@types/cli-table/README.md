@@ -1,0 +1,16 @@
+# Installation
+> `npm install --save @types/cli-table`
+
+# Summary
+This package contains type definitions for cli-table (https://github.com/Automattic/cli-table).
+
+# Details
+Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped.git/tree/master/types/cli-table
+
+Additional Details
+ * Last updated: Sat, 19 May 2018 00:15:19 GMT
+ * Dependencies: none
+ * Global values: none
+
+# Credits
+These definitions were written by AryloYeung <https://github.com/arylo>.
