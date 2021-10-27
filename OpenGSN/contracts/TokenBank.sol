@@ -1,3 +1,5 @@
+
+
 pragma solidity ^0.7.6;
 import "./Token.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -9,9 +11,7 @@ contract TokenBank {
     
     event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
-    Token private token;
-    // mapping(address => uint) public tokenBalance;
-  
+    Token private token;  
 
     constructor(Token _token) public {
         token = _token;
@@ -64,7 +64,7 @@ contract TokenBank {
 
     // function tokenBalance(address _address) view public returns(uint) {
     //     return token.balanceOf(_address);
-    }
+    //}
 
 
 

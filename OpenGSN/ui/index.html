@@ -11,16 +11,27 @@
     <h2>GSNv2 Test App</h2>
 
     <script>
-      window.app.initContract().then(function ({contractAddress, network}) {
+      window.app.initNoFeePaymaster().then(function ({contractAddress, network}) {
         console.log( 'CaptureTheFlag contract', contractAddress)
         console.log(`identified network: ${JSON.stringify(network)}`)
-        document.getElementById('capture_button').disabled = false
+        document.getElementById('noFeePaymaster').disabled = false
       })
+
+      window.app.initTokenFeePaymaster().then(function ({contractAddress, network}) {
+        console.log( 'CaptureTheFlag contract', contractAddress)
+        console.log(`identified network: ${JSON.stringify(network)}`)
+        document.getElementById('tokenFeePaymaster').disabled = false
+        
+      })
+
     </script>
 
-    <button id="capture_button" disabled onClick="window.app.contractCall()">
-        Capture the flag
+    <button id="noFeePaymaster" disabled onClick="window.app.noFeeContractCall()">
+        No Fee Paymaster 
     </button>
+    <button id="tokenFeePaymaster" disabled onClick="window.app.tokenFeeContractCall()">
+      Token Fee Paymaster  
+  </button>
 
 <hr>
 <div id="logview"> </div>
