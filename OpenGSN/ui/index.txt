@@ -1,0 +1,38 @@
+<html>
+<head>
+
+    <title>GSNv2 Test</title>
+
+    <script src="bundle.js">
+    </script>
+
+</head>
+<body>
+    <h2>GSNv2 Test App</h2>
+
+    <script>
+      window.app.initNoFeePaymaster().then(function ({contractAddress, network}) {
+        console.log( 'CaptureTheFlag contract', contractAddress)
+        console.log(`identified network: ${JSON.stringify(network)}`)
+        document.getElementById('noFeePaymaster').disabled = false
+      })
+
+      window.app.initTokenFeePaymaster().then(function ({contractAddress, network}) {
+        console.log( 'CaptureTheFlag contract', contractAddress)
+        console.log(`identified network: ${JSON.stringify(network)}`)
+        document.getElementById('tokenFeePaymaster').disabled = false
+        
+      })
+    </script>
+
+    <button id="noFeePaymaster" disabled onClick="window.app.noFeeContractCall()">
+        No Fee Paymaster 
+    </button>
+    <button id="tokenFeePaymaster" disabled onClick="window.app.tokenFeeContractCall()">
+      Token Fee Paymaster  
+  </button>
+
+<hr>
+<div id="logview"> </div>
+</body>
+</html>
