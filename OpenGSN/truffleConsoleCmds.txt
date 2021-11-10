@@ -15,7 +15,7 @@ await token.balanceOf(targetContract.address)
 
 // TESTing CMDS DO NOT RUN
 
-await token.allowance("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",paymaster.address) to check allowance
+await token.allowance("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",tokenFeePaymaster.address) to check allowance
 await tokenBank.approveTokens(tokenBank.address,10)
 await token.increaseAllowance(tokenBank.address,10)
 await tokenBank.transferTokens("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",tokenBank.address,1)

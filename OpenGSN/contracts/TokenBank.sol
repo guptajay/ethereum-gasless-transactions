@@ -53,20 +53,6 @@ contract TokenBank {
     }
 
 
-    // function approveTokens(address _creditor,uint256 amount) public{
-    //     require(token.approve(_creditor,amount),"Allowance Failed");
-    //     token.increaseAllowance(_creditor,amount); //IDK WHY 
-    // }
-
-    // function transferTokens(address _debitor,address _creditor ,uint amount) public {
-    //     token.transferFrom(_debitor,_creditor,amount);
-    // }
-
-    // function tokenBalance(address _address) view public returns(uint) {
-    //     return token.balanceOf(_address);
-    //}
-
-
 
 
 

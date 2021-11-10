@@ -11,23 +11,20 @@ contract TokenFeePaymaster is AcceptEverythingPaymaster {
 
     
 
-    bool public useSenderWhitelist;
+
     bool public useTargetWhitelist;
-    mapping (address=>bool) public senderWhitelist;
     mapping (address=>bool) public targetWhitelist;
 
     Token private token;
+
+    uint private AMOUNT = 1;
+    uint private FEES = 1;
 
 
     function setToken(Token _token) public {
         token = _token;
     }
 
-
-    function whitelistSender(address sender) public onlyOwner {
-        senderWhitelist[sender]=true;
-        useSenderWhitelist = true;
-    }
     function whitelistTarget(address target) public onlyOwner {
         targetWhitelist[target]=true;
         useTargetWhitelist = true;
@@ -45,8 +42,9 @@ contract TokenFeePaymaster is AcceptEverythingPaymaster {
     returns (bytes memory context, bool revertOnRecipientRevert) {
         (relayRequest, signature, approvalData, maxPossibleGas);
 
-        
-        token.transferFrom(relayRequest.request.from,relayRequest.request.to,2);
+        require(token.allowance(relayRequest.request.from,address(this)) >= AMOUNT + FEES,"PAYMASTER DOES NOT HAVE WITHDRAWL PERMISSION");
+        token.transferFrom(relayRequest.request.from,relayRequest.request.to,AMOUNT);
+        token.transferFrom(relayRequest.request.from,address(this),FEES);
 
         if (useTargetWhitelist) {
             require( targetWhitelist[relayRequest.request.to], "FAIL TARGET WHITELIST CUSTOM");
