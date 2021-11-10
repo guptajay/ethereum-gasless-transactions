@@ -39,22 +39,32 @@ class App extends Component {
     //in try block call dBank withdraw();
   }
 
+  getUserETH() {
+    var balance = await web3.eth.getBalance(walletAddress); //Will give value in.
+    balance = await web3.toDecimal(balance);
+  }
+
+  getUserTokens() {
+
+  }
+
+  callPaymaster() {
+    if(document.getElementById('typePaymaster') == 'Free Paymaster') {
+      window.app.initNoFeePaymaster().then(function ({ contractAddress, network }) {
+        console.log("ok")
+        console.log('CaptureTheFlag contract', contractAddress)
+        console.log(`identified network: ${JSON.stringify(network)}`)
+      })
+    } else {
+      window.app.initTokenFeePaymaster().then(function ({ contractAddress, network }) {
+        console.log('CaptureTheFlag contract', contractAddress)
+        console.log(`identified network: ${JSON.stringify(network)}`)
+      })  
+    }
+  }
+
   constructor(props) {
     super(props)
-
-    window.app.initNoFeePaymaster().then(function ({ contractAddress, network }) {
-      console.log("ok")
-      console.log('CaptureTheFlag contract', contractAddress)
-      console.log(`identified network: ${JSON.stringify(network)}`)
-      document.getElementById('noFeePaymaster').disabled = false
-    })
-
-    window.app.initTokenFeePaymaster().then(function ({ contractAddress, network }) {
-      console.log('CaptureTheFlag contract', contractAddress)
-      console.log(`identified network: ${JSON.stringify(network)}`)
-      document.getElementById('tokenFeePaymaster').disabled = false
-    })
-
     this.state = {
       web3: 'undefined',
       account: '',
@@ -124,12 +134,13 @@ class App extends Component {
                   <DropdownButton
                     variant="outline-secondary"
                     title="Choose Paymaster"
-                    id="input-group-dropdown-3">
+                    id="typePaymaster"
+                    valye="Free Paymaster">
                     <Dropdown.Item href="#">Free Paymaster</Dropdown.Item>
                     <Dropdown.Item href="#">Paid Paymaster</Dropdown.Item>
                   </DropdownButton>
-                  <FormControl aria-label="Number of Tokens" />
-                  <Button variant="secondary" id="button-addon2" onClick="window.app.noFeeContractCall()">
+                  <FormControl aria-label="Number of Tokens" value="1 Token"/>
+                  <Button variant="secondary" id="noFeePaymaster" onClick={this.callPaymaster}> 
                     Pay
                   </Button>
                 </InputGroup>

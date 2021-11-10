@@ -1,7 +1,7 @@
 {
   "contractName": "GsnTypes",
   "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"@opengsn/contracts/src/utils/GsnTypes.sol\":\"GsnTypes\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@opengsn/contracts/src/forwarder/IForwarder.sol\":{\"keccak256\":\"0xca05fe8ee1d0bbdd9edd83f16b8481fa67704f0ed5a42d5c0f76c8a3a47d73f4\",\"license\":\"GPL-3.0-only\",\"urls\":[\"bzz-raw://e42577c586894c9fc9e11a3281c0e2d4183121714fd1101380b6b2b66c144ba3\",\"dweb:/ipfs/QmPQphvUxhvnYGXtNRbU7WcmbEP2N7mMDgC5R8R9AqC9xG\"]},\"@opengsn/contracts/src/utils/GsnTypes.sol\":{\"keccak256\":\"0x813b12755ca7e69d3f269b5ab801d36d208274c26ea2764a416c3033e61bc130\",\"license\":\"GPL-3.0-only\",\"urls\":[\"bzz-raw://f3b0de24eae014d96adac3946984f3f3b769b3d74c3b46ccdb6b93d516b6916d\",\"dweb:/ipfs/QmRVmrAzeYGve3sQ2qksDknA5MVmmJpgZiRZ7VWCQCehNz\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.7.6+commit.7338295f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"@opengsn/contracts/src/utils/GsnTypes.sol\":\"GsnTypes\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@opengsn/contracts/src/forwarder/IForwarder.sol\":{\"keccak256\":\"0x0c0f70b4b4b6c42795d04629cb6a4538c3636ac6d227ed3182aeaf901b81598c\",\"license\":\"GPL-3.0-only\",\"urls\":[\"bzz-raw://ebd47da9be88c77e73b7093a935487c181c9bf0867c187f8280df6ad76db8342\",\"dweb:/ipfs/QmeUBciL62yp6ysjbnWPn31sXRkcMtZ9XfwSMuNG1QCrM1\"]},\"@opengsn/contracts/src/utils/GsnTypes.sol\":{\"keccak256\":\"0x12f131b184f4d0a31f2468478321f41e6b4321e2ecd7fcb72dee52955b1b4ee7\",\"license\":\"GPL-3.0-only\",\"urls\":[\"bzz-raw://bb7b13e316392c505a88daaf7bdef573f0abf9a7707b23f766a9afeca5df1788\",\"dweb:/ipfs/QmcZH2mkmiESUzujZGU8m39reTymmBzcYRA2sBwZuejUFD\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -9,7 +9,7 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: GPL-3.0-only\npragma solidity >=0.7.6;\n\nimport \"../forwarder/IForwarder.sol\";\n\ninterface GsnTypes {\n    /// @notice gasPrice, pctRelayFee and baseRelayFee must be validated inside of the paymaster's preRelayedCall in order not to overpay\n    struct RelayData {\n        uint256 gasPrice;\n        uint256 pctRelayFee;\n        uint256 baseRelayFee;\n        address relayWorker;\n        address paymaster;\n        address forwarder;\n        bytes paymasterData;\n        uint256 clientId;\n    }\n\n    //note: must start with the ForwardRequest to be an extension of the generic forwarder\n    struct RelayRequest {\n        IForwarder.ForwardRequest request;\n        RelayData relayData;\n    }\n}\n",
+  "source": "// SPDX-License-Identifier: GPL-3.0-only\r\npragma solidity >=0.7.6;\r\n\r\nimport \"../forwarder/IForwarder.sol\";\r\n\r\ninterface GsnTypes {\r\n    /// @notice gasPrice, pctRelayFee and baseRelayFee must be validated inside of the paymaster's preRelayedCall in order not to overpay\r\n    struct RelayData {\r\n        uint256 gasPrice;\r\n        uint256 pctRelayFee;\r\n        uint256 baseRelayFee;\r\n        address relayWorker;\r\n        address paymaster;\r\n        address forwarder;\r\n        bytes paymasterData;\r\n        uint256 clientId;\r\n    }\r\n\r\n    //note: must start with the ForwardRequest to be an extension of the generic forwarder\r\n    struct RelayRequest {\r\n        IForwarder.ForwardRequest request;\r\n        RelayData relayData;\r\n    }\r\n}\r\n",
   "sourcePath": "@opengsn\\contracts\\src\\utils\\GsnTypes.sol",
   "ast": {
     "absolutePath": "@opengsn/contracts/src/utils/GsnTypes.sol",
@@ -34,7 +34,7 @@
           ".6"
         ],
         "nodeType": "PragmaDirective",
-        "src": "41:24:9"
+        "src": "42:24:9"
       },
       {
         "absolutePath": "@opengsn/contracts/src/forwarder/IForwarder.sol",
@@ -43,7 +43,7 @@
         "nodeType": "ImportDirective",
         "scope": 2642,
         "sourceUnit": 1718,
-        "src": "67:37:9",
+        "src": "70:37:9",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -71,7 +71,7 @@
                 "name": "gasPrice",
                 "nodeType": "VariableDeclaration",
                 "scope": 2635,
-                "src": "296:16:9",
+                "src": "304:16:9",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -82,7 +82,7 @@
                   "id": 2619,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "296:7:9",
+                  "src": "304:7:9",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -97,7 +97,7 @@
                 "name": "pctRelayFee",
                 "nodeType": "VariableDeclaration",
                 "scope": 2635,
-                "src": "322:19:9",
+                "src": "331:19:9",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -108,7 +108,7 @@
                   "id": 2621,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "322:7:9",
+                  "src": "331:7:9",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -123,7 +123,7 @@
                 "name": "baseRelayFee",
                 "nodeType": "VariableDeclaration",
                 "scope": 2635,
-                "src": "351:20:9",
+                "src": "361:20:9",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -134,7 +134,7 @@
                   "id": 2623,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "351:7:9",
+                  "src": "361:7:9",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -149,7 +149,7 @@
                 "name": "relayWorker",
                 "nodeType": "VariableDeclaration",
                 "scope": 2635,
-                "src": "381:19:9",
+                "src": "392:19:9",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -160,7 +160,7 @@
                   "id": 2625,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "381:7:9",
+                  "src": "392:7:9",
                   "stateMutability": "nonpayable",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
@@ -176,7 +176,7 @@
                 "name": "paymaster",
                 "nodeType": "VariableDeclaration",
                 "scope": 2635,
-                "src": "410:17:9",
+                "src": "422:17:9",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -187,7 +187,7 @@
                   "id": 2627,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "410:7:9",
+                  "src": "422:7:9",
                   "stateMutability": "nonpayable",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
@@ -203,7 +203,7 @@
                 "name": "forwarder",
                 "nodeType": "VariableDeclaration",
                 "scope": 2635,
-                "src": "437:17:9",
+                "src": "450:17:9",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -214,7 +214,7 @@
                   "id": 2629,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "437:7:9",
+                  "src": "450:7:9",
                   "stateMutability": "nonpayable",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
@@ -230,7 +230,7 @@
                 "name": "paymasterData",
                 "nodeType": "VariableDeclaration",
                 "scope": 2635,
-                "src": "464:19:9",
+                "src": "478:19:9",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -241,7 +241,7 @@
                   "id": 2631,
                   "name": "bytes",
                   "nodeType": "ElementaryTypeName",
-                  "src": "464:5:9",
+                  "src": "478:5:9",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bytes_storage_ptr",
                     "typeString": "bytes"
@@ -256,7 +256,7 @@
                 "name": "clientId",
                 "nodeType": "VariableDeclaration",
                 "scope": 2635,
-                "src": "493:16:9",
+                "src": "508:16:9",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -267,7 +267,7 @@
                   "id": 2633,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "493:7:9",
+                  "src": "508:7:9",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -279,7 +279,7 @@
             "name": "RelayData",
             "nodeType": "StructDefinition",
             "scope": 2641,
-            "src": "269:247:9",
+            "src": "276:256:9",
             "visibility": "public"
           },
           {
@@ -293,7 +293,7 @@
                 "name": "request",
                 "nodeType": "VariableDeclaration",
                 "scope": 2640,
-                "src": "643:33:9",
+                "src": "663:33:9",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -305,7 +305,7 @@
                   "name": "IForwarder.ForwardRequest",
                   "nodeType": "UserDefinedTypeName",
                   "referencedDeclaration": 1649,
-                  "src": "643:25:9",
+                  "src": "663:25:9",
                   "typeDescriptions": {
                     "typeIdentifier": "t_struct$_ForwardRequest_$1649_storage_ptr",
                     "typeString": "struct IForwarder.ForwardRequest"
@@ -320,7 +320,7 @@
                 "name": "relayData",
                 "nodeType": "VariableDeclaration",
                 "scope": 2640,
-                "src": "686:19:9",
+                "src": "707:19:9",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -332,7 +332,7 @@
                   "name": "RelayData",
                   "nodeType": "UserDefinedTypeName",
                   "referencedDeclaration": 2635,
-                  "src": "686:9:9",
+                  "src": "707:9:9",
                   "typeDescriptions": {
                     "typeIdentifier": "t_struct$_RelayData_$2635_storage_ptr",
                     "typeString": "struct GsnTypes.RelayData"
@@ -344,15 +344,15 @@
             "name": "RelayRequest",
             "nodeType": "StructDefinition",
             "scope": 2641,
-            "src": "613:99:9",
+            "src": "632:102:9",
             "visibility": "public"
           }
         ],
         "scope": 2642,
-        "src": "106:608:9"
+        "src": "111:626:9"
       }
     ],
-    "src": "41:674:9"
+    "src": "42:697:9"
   },
   "legacyAST": {
     "attributes": {
@@ -379,7 +379,7 @@
         },
         "id": 2617,
         "name": "PragmaDirective",
-        "src": "41:24:9"
+        "src": "42:24:9"
       },
       {
         "attributes": {
@@ -394,7 +394,7 @@
         },
         "id": 2618,
         "name": "ImportDirective",
-        "src": "67:37:9"
+        "src": "70:37:9"
       },
       {
         "attributes": {
@@ -441,12 +441,12 @@
                     },
                     "id": 2619,
                     "name": "ElementaryTypeName",
-                    "src": "296:7:9"
+                    "src": "304:7:9"
                   }
                 ],
                 "id": 2620,
                 "name": "VariableDeclaration",
-                "src": "296:16:9"
+                "src": "304:16:9"
               },
               {
                 "attributes": {
@@ -467,12 +467,12 @@
                     },
                     "id": 2621,
                     "name": "ElementaryTypeName",
-                    "src": "322:7:9"
+                    "src": "331:7:9"
                   }
                 ],
                 "id": 2622,
                 "name": "VariableDeclaration",
-                "src": "322:19:9"
+                "src": "331:19:9"
               },
               {
                 "attributes": {
@@ -493,12 +493,12 @@
                     },
                     "id": 2623,
                     "name": "ElementaryTypeName",
-                    "src": "351:7:9"
+                    "src": "361:7:9"
                   }
                 ],
                 "id": 2624,
                 "name": "VariableDeclaration",
-                "src": "351:20:9"
+                "src": "361:20:9"
               },
               {
                 "attributes": {
@@ -520,12 +520,12 @@
                     },
                     "id": 2625,
                     "name": "ElementaryTypeName",
-                    "src": "381:7:9"
+                    "src": "392:7:9"
                   }
                 ],
                 "id": 2626,
                 "name": "VariableDeclaration",
-                "src": "381:19:9"
+                "src": "392:19:9"
               },
               {
                 "attributes": {
@@ -547,12 +547,12 @@
                     },
                     "id": 2627,
                     "name": "ElementaryTypeName",
-                    "src": "410:7:9"
+                    "src": "422:7:9"
                   }
                 ],
                 "id": 2628,
                 "name": "VariableDeclaration",
-                "src": "410:17:9"
+                "src": "422:17:9"
               },
               {
                 "attributes": {
@@ -574,12 +574,12 @@
                     },
                     "id": 2629,
                     "name": "ElementaryTypeName",
-                    "src": "437:7:9"
+                    "src": "450:7:9"
                   }
                 ],
                 "id": 2630,
                 "name": "VariableDeclaration",
-                "src": "437:17:9"
+                "src": "450:17:9"
               },
               {
                 "attributes": {
@@ -600,12 +600,12 @@
                     },
                     "id": 2631,
                     "name": "ElementaryTypeName",
-                    "src": "464:5:9"
+                    "src": "478:5:9"
                   }
                 ],
                 "id": 2632,
                 "name": "VariableDeclaration",
-                "src": "464:19:9"
+                "src": "478:19:9"
               },
               {
                 "attributes": {
@@ -626,17 +626,17 @@
                     },
                     "id": 2633,
                     "name": "ElementaryTypeName",
-                    "src": "493:7:9"
+                    "src": "508:7:9"
                   }
                 ],
                 "id": 2634,
                 "name": "VariableDeclaration",
-                "src": "493:16:9"
+                "src": "508:16:9"
               }
             ],
             "id": 2635,
             "name": "StructDefinition",
-            "src": "269:247:9"
+            "src": "276:256:9"
           },
           {
             "attributes": {
@@ -666,12 +666,12 @@
                     },
                     "id": 2636,
                     "name": "UserDefinedTypeName",
-                    "src": "643:25:9"
+                    "src": "663:25:9"
                   }
                 ],
                 "id": 2637,
                 "name": "VariableDeclaration",
-                "src": "643:33:9"
+                "src": "663:33:9"
               },
               {
                 "attributes": {
@@ -693,27 +693,27 @@
                     },
                     "id": 2638,
                     "name": "UserDefinedTypeName",
-                    "src": "686:9:9"
+                    "src": "707:9:9"
                   }
                 ],
                 "id": 2639,
                 "name": "VariableDeclaration",
-                "src": "686:19:9"
+                "src": "707:19:9"
               }
             ],
             "id": 2640,
             "name": "StructDefinition",
-            "src": "613:99:9"
+            "src": "632:102:9"
           }
         ],
         "id": 2641,
         "name": "ContractDefinition",
-        "src": "106:608:9"
+        "src": "111:626:9"
       }
     ],
     "id": 2642,
     "name": "SourceUnit",
-    "src": "41:674:9"
+    "src": "42:697:9"
   },
   "compiler": {
     "name": "solc",
@@ -721,7 +721,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-10-27T19:47:35.281Z",
+  "updatedAt": "2021-11-10T15:18:29.318Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
