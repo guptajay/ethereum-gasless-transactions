@@ -1,5 +1,6 @@
 const token = await Token.deployed()
 const tokenBank = await TokenBank.deployed()
+const targetContract = await TargetContract.deployed()
 const noFeePaymaster = await NoFeePaymaster.deployed()
 const tokenFeePaymaster = await TokenFeePaymaster.deployed()
 await token.balanceOf(tokenBank.address)
@@ -8,6 +9,8 @@ await tokenBank.buyTokens({value:100})
 await token.balanceOf("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1")
 await token.increaseAllowance(noFeePaymaster.address,2)
 await token.increaseAllowance(tokenFeePaymaster.address,2)
+await token.balanceOf(targetContract.address)
+
 
 
 // TESTing CMDS DO NOT RUN
@@ -17,3 +20,6 @@ await tokenBank.approveTokens(tokenBank.address,10)
 await token.increaseAllowance(tokenBank.address,10)
 await tokenBank.transferTokens("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",tokenBank.address,1)
 await tokenBank.approveTokens(paymaster.address,10)
+await token.increaseAllowance(noFeePaymaster.address,2)
+await token.increaseAllowance(tokenFeePaymaster.address,2)
+await token.increaseAllowance(targetContract.address,2)

@@ -4,40 +4,38 @@
 pragma solidity ^0.7.6;
 
 import "@opengsn/contracts/src/BaseRelayRecipient.sol";
+import "./TokenBank.sol";
 
 contract TargetContract is BaseRelayRecipient {
 
-    event NoFeeFlagCaptured(address previousHolder, address currentHolder);
-    event TokenFeeFlagCaptured(address previousHolder, address currentHolder);
-
-    address public currentHolder = address(0);
+    event NoFeeFlagCaptured(address sender);
+    event TokenFeeFlagCaptured(address sender);
 
     constructor(address forwarder) {
       trustedForwarder = forwarder;
     }
 
+
     string public override versionRecipient = "2.2.0";
 
-    //mapping[address] => token_balance 
 
-    function noCommissionTx() external {
-        address previousHolder = currentHolder;
-
-        currentHolder = _msgSender();
-        
-
-        emit NoFeeFlagCaptured(previousHolder, currentHolder);
+    function noCommissionTx() public {
+        emit NoFeeFlagCaptured(_msgSender());
     }
+    
+    function tokenCommissionTx() public {
+        emit TokenFeeFlagCaptured(_msgSender());
 
-    function tokenCommissionTx() external {
-        address previousHolder = currentHolder;
-
-        currentHolder = _msgSender();
-        
-
-        emit TokenFeeFlagCaptured(previousHolder, currentHolder);
     }
 
 
+// function sell(uint256 amount) public {
+//     require(amount > 0, "You need to sell at least some tokens");
+//     uint256 allowance = token.allowance(msg.sender, address(this));
+//     require(allowance >= amount, "Check the token allowance");
+//     token.transferFrom(msg.sender, address(this), amount);
+//     msg.sender.transfer(amount);
+//     emit Sold(amount);
+// }
 
 }

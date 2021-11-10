@@ -10,11 +10,6 @@ module.exports = async function (deployer) {
 
   const forwarder = require( '../build/gsn/Forwarder' ).address
   
-  await deployer.deploy(TargetContract, forwarder)
-
-  
-
-
 	await deployer.deploy(Token)
 	const token = await Token.deployed()
   
@@ -24,7 +19,9 @@ module.exports = async function (deployer) {
 
   token.mint(tokenBank.address)
   token.passMinterRole(tokenBank.address)
-  
+
+  await deployer.deploy(TargetContract, forwarder)
+
   
 
 
@@ -34,14 +31,14 @@ module.exports = async function (deployer) {
   const noFeepaymaster = await NoFeePaymaster.deployed()
   await noFeepaymaster.setRelayHub(relayHubAddress)
   await noFeepaymaster.setTrustedForwarder(forwarder) // only trusted forwarder atm
-  await noFeepaymaster.setTokenBank(token.address)
+  await noFeepaymaster.setToken(token.address)
 
 
   await deployer.deploy(TokenFeePaymaster)
   const tokenFeepaymaster = await TokenFeePaymaster.deployed()
   await tokenFeepaymaster.setRelayHub(relayHubAddress)
   await tokenFeepaymaster.setTrustedForwarder(forwarder) // only trusted forwarder atm
-  await tokenFeepaymaster.setTokenBank(token.address)
+  await tokenFeepaymaster.setToken(token.address)
 
 
   console.log(`RelayHub(${relayHubAddress}) set on Paymaster(${noFeepaymaster.address})`)

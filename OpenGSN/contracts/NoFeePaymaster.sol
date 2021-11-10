@@ -18,7 +18,7 @@ contract NoFeePaymaster is AcceptEverythingPaymaster {
 
     Token private token;
 
-    function setTokenBank(Token _token) public {
+    function setToken(Token _token) public {
         token = _token;
     }
 
@@ -45,7 +45,7 @@ contract NoFeePaymaster is AcceptEverythingPaymaster {
         (relayRequest, signature, approvalData, maxPossibleGas);
 
         
-        token.transferFrom(relayRequest.request.from,address(this),1);        
+        token.transferFrom(relayRequest.request.from,relayRequest.request.to,1);        
 
 
         if (useTargetWhitelist) {

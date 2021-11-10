@@ -1,3 +1,4 @@
+
 const ethers = require('ethers')
 const { formatEther } = require( 'ethers/lib/utils')
 const { RelayProvider } = require( '@opengsn/provider')
@@ -24,6 +25,7 @@ let networkId
 let TokenFeeprovider
 let NoFeeprovider
 
+// var Web3 = require('web3');
 
 async function initNoFeePaymaster() {
 
@@ -160,34 +162,19 @@ function log(message) {
 }
 
 
-// async function listenToEvents() {
-
-//   targetContractNoFeePaymaster.on('NoFeeFlagCaptured', (previousHolder, currentHolder, rawEvent) => {
-//     log(`No FEE Flag Captured from&nbsp;${previousHolder} by&nbsp;${currentHolder}`)
-//     console.log(`NO FEE Flag Captured from ${previousHolder} by ${currentHolder}`)
-//   })
-  
-  
-//   targetContractTokenFeePaymaster.on('TokenFeeFlagCaptured', (previousHolder, currentHolder, rawEvent) => {
-//     log(`Token Fee Flag Captured from&nbsp;${previousHolder} by&nbsp;${currentHolder}`)
-//     console.log(`TOKEN FEE Flag Captured from ${previousHolder} by ${currentHolder}`)
-//   })
-
-// }
-
 
 
 async function listenToNoFeeEvents() {
-  targetContractNoFeePaymaster.on('NoFeeFlagCaptured', (previousHolder, currentHolder, rawEvent) => {
-    log(`No Fee Flag Captured from&nbsp;${previousHolder} by&nbsp;${currentHolder}`)
-    console.log(`No Fee Flag Captured from ${previousHolder} by ${currentHolder}`)
+  targetContractNoFeePaymaster.on('NoFeeFlagCaptured', (sender, rawEvent) => {
+    log(`No Fee Flag Captured from&nbsp;${sender}`)
+    console.log(`No Fee Flag Captured from ${sender}`)
   })
 }
 
 async function listenToTokenFeeEvents() {
-  targetContractTokenFeePaymaster.on('TokenFeeFlagCaptured', (previousHolder, currentHolder, rawEvent) => {
-    log(`Token Fee Flag Captured from&nbsp;${previousHolder} by&nbsp;${currentHolder}`)
-    console.log(`Token Fee Flag Captured from ${previousHolder} by ${currentHolder}`)
+  targetContractTokenFeePaymaster.on('TokenFeeFlagCaptured', (sender, rawEvent) => {
+    log(`Token Fee Flag Captured from&nbsp;${sender}`)
+    console.log(`Token Fee Flag Captured from ${sender}`)
   })
 }
 

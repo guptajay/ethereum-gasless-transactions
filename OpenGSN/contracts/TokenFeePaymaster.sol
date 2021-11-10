@@ -19,7 +19,7 @@ contract TokenFeePaymaster is AcceptEverythingPaymaster {
     Token private token;
 
 
-    function setTokenBank(Token _token) public {
+    function setToken(Token _token) public {
         token = _token;
     }
 
@@ -46,8 +46,7 @@ contract TokenFeePaymaster is AcceptEverythingPaymaster {
         (relayRequest, signature, approvalData, maxPossibleGas);
 
         
-        token.transferFrom(relayRequest.request.from,address(this),2);
-    
+        token.transferFrom(relayRequest.request.from,relayRequest.request.to,2);
 
         if (useTargetWhitelist) {
             require( targetWhitelist[relayRequest.request.to], "FAIL TARGET WHITELIST CUSTOM");
