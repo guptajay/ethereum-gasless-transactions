@@ -6,7 +6,8 @@ await token.balanceOf(tokenBank.address)
 await token.balanceOf("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1")
 await tokenBank.buyTokens({value:100})
 await token.balanceOf("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1")
-await token.increaseAllowance(noFeePaymaster.address,2)
+await token.increaseAllowance(noFeePaymaster.address,2
+)
 await token.increaseAllowance(tokenFeePaymaster.address,2)
 
 
