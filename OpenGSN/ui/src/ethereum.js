@@ -5,7 +5,6 @@ const { RelayProvider } = require('@opengsn/provider')
 
 const contractArtifact = require('../../build/contracts/TargetContract.json')
 
-
 const noFeePaymasterArtifact = require('../../build/contracts/NoFeePaymaster.json')
 const tokenFeePaymasterArtifact = require('../../build/contracts/TokenFeePaymaster.json')
 
@@ -24,6 +23,28 @@ let networkId
 let TokenFeeprovider
 let NoFeeprovider
 
+async function getAllAddresses() {
+
+    if (!window.ethereum) {
+        throw new Error('provider not found')
+    }
+    window.ethereum.on('accountsChanged', () => {
+        console.log('acct');
+        window.location.reload()
+    })
+    window.ethereum.on('chainChanged', () => {
+        console.log('chainChained');
+        window.location.reload()
+    })
+
+    networkId = await window.ethereum.request({ method: 'net_version' })
+
+
+    let noFeePaymasterAddr = noFeePaymasterArtifact.networks[networkId].address
+    let feePaymasterAddr = tokenFeePaymasterArtifact.networks[networkId].address
+    let recepientAddr = contractArtifact.networks[networkId].address
+    return [noFeePaymasterAddr, feePaymasterAddr, recepientAddr]
+}
 
 async function initNoFeePaymaster() {
 
@@ -197,5 +218,6 @@ window.app = {
     initTokenFeePaymaster,
     noFeeContractCall,
     tokenFeeContractCall,
-    log
+    log,
+    getAllAddresses
 }
