@@ -5,7 +5,6 @@ const { RelayProvider } = require('@opengsn/provider')
 
 const contractArtifact = require('../../build/contracts/TargetContract.json')
 
-
 const noFeePaymasterArtifact = require('../../build/contracts/NoFeePaymaster.json')
 const tokenFeePaymasterArtifact = require('../../build/contracts/TokenFeePaymaster.json')
 
@@ -24,6 +23,12 @@ let networkId
 let TokenFeeprovider
 let NoFeeprovider
 
+async function getAllAddresses() {
+    noFeePaymasterAddr = noFeePaymasterArtifact.networks[networkId].address
+    feePaymasterAddr = tokenFeePaymasterArtifact.networks[networkId].address
+    recepientAddr = contractArtifact.networks[networkId].address
+    return noFeePaymasterAddr, feePaymasterAddr, recepientAddr
+}
 
 async function initNoFeePaymaster() {
 
@@ -197,5 +202,6 @@ window.app = {
     initTokenFeePaymaster,
     noFeeContractCall,
     tokenFeeContractCall,
-    log
+    log,
+    getAllAddresses
 }

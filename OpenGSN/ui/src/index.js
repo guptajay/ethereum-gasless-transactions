@@ -4,11 +4,12 @@ import './ethereum.js'
 import './index.css';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import './bundle.js'
 import { Component } from 'react'
-import { Card, CardGroup, Navbar, Nav, Container, Button, ListGroup, Badge, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Card, CardGroup, Navbar, Nav, Container, Button, ListGroup, Badge, InputGroup, FormControl, DropdownButton, Dropdown, Spinner } from 'react-bootstrap'
 import { FaUserTie, FaUserSecret } from "react-icons/fa"
 import { SiEthereum } from "react-icons/si"
-
+import Web3 from 'web3';
 class App extends Component {
 
   async componentWillMount() {
@@ -40,39 +41,86 @@ class App extends Component {
   }
 
   getUserETH() {
-    var balance = await web3.eth.getBalance(walletAddress); //Will give value in.
-    balance = await web3.toDecimal(balance);
+    //var balance = await web3.eth.getBalance(walletAddress); //Will give value in.
+    //balance = await web3.toDecimal(balance);
   }
 
   getUserTokens() {
 
   }
 
-  callPaymaster() {
-    if(document.getElementById('typePaymaster') == 'Free Paymaster') {
-      window.app.initNoFeePaymaster().then(function ({ contractAddress, network }) {
-        console.log("ok")
-        console.log('CaptureTheFlag contract', contractAddress)
-        console.log(`identified network: ${JSON.stringify(network)}`)
-      })
-    } else {
-      window.app.initTokenFeePaymaster().then(function ({ contractAddress, network }) {
-        console.log('CaptureTheFlag contract', contractAddress)
-        console.log(`identified network: ${JSON.stringify(network)}`)
-      })  
-    }
+  freePayMaster() {
+    console.log('freePayMaster')
+    window.app.initNoFeePaymaster().then(function ({ contractAddress, network }) {
+      console.log('CaptureTheFlag contract', contractAddress)
+      console.log(`identified network: ${JSON.stringify(network)}`)
+    })
+  }
+
+  paidPayMaster() {
+    console.log('paidPayMaster')
+    window.app.initTokenFeePaymaster().then(function ({ contractAddress, network }) {
+      console.log('CaptureTheFlag contract', contractAddress)
+      console.log(`identified network: ${JSON.stringify(network)}`)
+    })
+  }
+
+  buyUserTokens() {
+    console.log('user tokens')
+  }
+
+  buyPaymasterTokens() {
+    console.log('paymaster Tokens')
+  }
+
+  buyRecepientTokens() {
+    console.log('Recepient Tokens')
+  }
+
+
+  async getBalance() {
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+    web3.eth.getAccounts().then(async function (accounts) {
+      var balance = await web3.eth.getBalance(accounts[0]);
+      var balanceOfUser = await web3.eth.getBalance(accounts[0]);
+      var balanceOfRecepient = await web3.eth.getBalance(accounts[0]);
+      var balanceOfPaymaster = await web3.eth.getBalance(accounts[0]);
+      var result = web3.utils.fromWei(balance, "ether")
+      console.log(result + " ETH")
+      return result
+    });
+  }
+
+  async getTokenBalance(walletAddress) {
+    //balance = await contract.methods.balanceOf(walletAddress).call();
+    //console.log(balance)
   }
 
   constructor(props) {
     super(props)
-    this.state = {
-      web3: 'undefined',
-      account: '',
-      token: null,
-      dbank: null,
-      balance: 0,
-      dBankAddress: null
+    this.getBalance = this.getBalance.bind(this)
+    const Web3 = require("web3");
+
+    const ethEnabled = async () => {
+      if (window.ethereum) {
+        await window.ethereum.send('eth_requestAccounts');
+        window.web3 = new Web3(window.ethereum);
+        return true;
+      }
+      return false;
     }
+
+    ethEnabled().then(function (result) {
+      const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+      web3.eth.getAccounts().then(function (accounts) {
+        console.log(accounts)
+
+        window.app.getAllAddresses().then(function (addresses) {
+          console.log(addresses)
+        })
+      });
+    })
+
   }
 
   render() {
@@ -131,23 +179,17 @@ class App extends Component {
                 </ListGroup>
 
                 <InputGroup className="mt-4">
+                  <FormControl aria-label="Number of Tokens" placeholder="1 Token" disabled />
                   <DropdownButton
                     variant="outline-secondary"
-                    title="Choose Paymaster"
-                    id="typePaymaster"
-                    valye="Free Paymaster">
-                    <Dropdown.Item href="#">Free Paymaster</Dropdown.Item>
-                    <Dropdown.Item href="#">Paid Paymaster</Dropdown.Item>
+                    title="Choose and Pay"
+                    id="typePaymaster">
+                    <Dropdown.Item onClick={this.freePayMaster}>Pay with Free Paymaster</Dropdown.Item>
+                    <Dropdown.Item onClick={this.paidPayMaster}>Pay with Paid Paymaster</Dropdown.Item>
                   </DropdownButton>
-                  <FormControl aria-label="Number of Tokens" value="1 Token"/>
-                  <Button variant="secondary" id="noFeePaymaster" onClick={this.callPaymaster}> 
-                    Pay
-                  </Button>
                 </InputGroup>
               </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </Card.Footer>
+
             </Card>
             <Card className="text-center">
               <div class="row mt-5">
@@ -184,9 +226,6 @@ class App extends Component {
                   </ListGroup.Item>
                 </ListGroup>
               </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </Card.Footer>
             </Card>
             <Card className="text-center">
               <div class="row mt-5">
@@ -223,9 +262,6 @@ class App extends Component {
                   </ListGroup.Item>
                 </ListGroup>
               </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </Card.Footer>
             </Card>
           </CardGroup>
         </Container>
@@ -236,19 +272,26 @@ class App extends Component {
             <Card.Body>
               <Card.Title>Buy Tokens Here</Card.Title>
               <InputGroup className="mt-4">
+                <FormControl aria-label="Buy for" placeholder="10 Tokens"
+                  disabled />
                 <DropdownButton
                   variant="outline-secondary"
                   title="Buy for"
-                  id="input-group-dropdown-3">
-                  <Dropdown.Item href="#">User</Dropdown.Item>
-                  <Dropdown.Item href="#">Paymaster</Dropdown.Item>
-                  <Dropdown.Item href="#">Recepient</Dropdown.Item>
+                  id="input-group-dropdown-3"
+                >
+                  <Dropdown.Item onClick={this.buyUserTokens}>User</Dropdown.Item>
+                  <Dropdown.Item onClick={this.buyPaymasterTokens}>Paymaster</Dropdown.Item>
+                  <Dropdown.Item onClick={this.buyRecepientTokens}>Recepient</Dropdown.Item>
                 </DropdownButton>
-                <FormControl aria-label="Buy for" />
-                <Button variant="secondary" id="button-addon2">
-                  Buy Tokens
-                </Button>
               </InputGroup>
+            </Card.Body>
+          </Card>
+        </Container>
+
+        <Container className='mt-3'>
+          <Card style={{ width: '40%' }}>
+            <Card.Body>
+              <Button as="input" value="Refresh" onClick={this.getBalance} />
             </Card.Body>
           </Card>
         </Container>
