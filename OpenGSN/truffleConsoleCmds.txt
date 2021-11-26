@@ -7,8 +7,7 @@ await token.balanceOf(tokenBank.address)
 await token.balanceOf("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1")
 await tokenBank.buyTokens({value:100})
 await token.balanceOf("0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1")
-await token.increaseAllowance(noFeePaymaster.address,2
-)
+await token.increaseAllowance(noFeePaymaster.address,2)
 await token.increaseAllowance(tokenFeePaymaster.address,2)
 await token.balanceOf(targetContract.address)
 
@@ -30,8 +29,7 @@ await web3.eth.getBalance(noFeePaymaster.address)
 
 const relayHub = await RelayHub.at("0x254dffcd3277C0b1660F6d42EFbB754edaBAbC2B")
 
-
-//for relayHub
-let val = relayHub.balanceOf(noFeePaymaster.address)
+let val = await relayHub.balanceOf(noFeePaymaster.address)
 val.toString() 
 web3.utils.fromWei(val.toString())
+
