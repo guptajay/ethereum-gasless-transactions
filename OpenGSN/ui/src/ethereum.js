@@ -168,15 +168,15 @@ async function tokenFeeContractCall() {
 }
 
 
-let logview
+// let logview
 
-function log(message) {
-    message = message.replace(/(0x\w\w\w\w)\w*(\w\w\w\w)\b/g, '<b>$1...$2</b>')
-    if (!logview) {
-        logview = document.getElementById('logview')
-    }
-    logview.innerHTML = message + "<br>\n" + logview.innerHTML
-}
+// function log(message) {
+//     message = message.replace(/(0x\w\w\w\w)\w*(\w\w\w\w)\b/g, '<b>$1...$2</b>')
+//     if (!logview) {
+//         logview = document.getElementById('logview')
+//     }
+//     logview.innerHTML = message + "<br>\n" + logview.innerHTML
+// }
 
 
 // async function listenToEvents() {
@@ -198,14 +198,12 @@ function log(message) {
 
 async function listenToNoFeeEvents() {
     targetContractNoFeePaymaster.on('NoFeeFlagCaptured', (previousHolder, currentHolder, rawEvent) => {
-        log(`No Fee Flag Captured from&nbsp;${previousHolder} by&nbsp;${currentHolder}`)
         console.log(`No Fee Flag Captured from ${previousHolder} by ${currentHolder}`)
     })
 }
 
 async function listenToTokenFeeEvents() {
     targetContractTokenFeePaymaster.on('TokenFeeFlagCaptured', (previousHolder, currentHolder, rawEvent) => {
-        log(`Token Fee Flag Captured from&nbsp;${previousHolder} by&nbsp;${currentHolder}`)
         console.log(`Token Fee Flag Captured from ${previousHolder} by ${currentHolder}`)
     })
 }
@@ -218,6 +216,7 @@ window.app = {
     initTokenFeePaymaster,
     noFeeContractCall,
     tokenFeeContractCall,
-    log,
-    getAllAddresses
+    getAllAddresses,
+    noFeeContractCall,
+    tokenFeeContractCall
 }

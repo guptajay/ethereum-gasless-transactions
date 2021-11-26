@@ -20,7 +20,7 @@ contract TokenBank {
     function buyTokens() public payable {
         require(msg.value > 0, "Invalid Amount");
 
-        uint amountToBuy = msg.value * tokenEthRate;
+        uint amountToBuy = (msg.value / 10**18 )* tokenEthRate;
 
         uint bankTokenBalance = token.balanceOf(address(this));
         require(bankTokenBalance >= amountToBuy,"Token Bank Has Insufficient Tokens");
