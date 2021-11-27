@@ -12,9 +12,6 @@ contract TokenFeePaymaster is AcceptEverythingPaymaster {
     
 
 
-    bool public useTargetWhitelist;
-    mapping (address=>bool) public targetWhitelist;
-
     Token private token;
 
     uint private AMOUNT = 1;
@@ -25,10 +22,6 @@ contract TokenFeePaymaster is AcceptEverythingPaymaster {
         token = _token;
     }
 
-    function whitelistTarget(address target) public onlyOwner {
-        targetWhitelist[target]=true;
-        useTargetWhitelist = true;
-    }
 
     function preRelayedCall(
         GsnTypes.RelayRequest calldata relayRequest,
@@ -46,9 +39,7 @@ contract TokenFeePaymaster is AcceptEverythingPaymaster {
         token.transferFrom(relayRequest.request.from,relayRequest.request.to,AMOUNT);
         token.transferFrom(relayRequest.request.from,address(this),FEES);
 
-        if (useTargetWhitelist) {
-            require( targetWhitelist[relayRequest.request.to], "FAIL TARGET WHITELIST CUSTOM");
-        }
+
         return ("", false);
     }
 
